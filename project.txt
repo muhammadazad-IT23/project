@@ -1,0 +1,56 @@
+/* The C++ program simulates a city book containing city names in Spain and 
+implements the Binary Search algorithm to efficiently search for a target 
+city.*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+// Function to search for a city in a sorted city book using Binary Search
+bool binarySearch(const std::vector<std::string>& cityBook, const std::string& target) {
+ int left = 0, right = cityBook.size() - 1;
+ // Binary search algorithm
+ while (left <= right) {
+ int mid = left + (right - left) / 2;
+ // Checking if the middle element is the target city
+ if (cityBook[mid] == target) {
+ return true; // City found
+ } else if (cityBook[mid] < target) {
+ left = mid + 1; // Adjusting the search range to the right
+ } else {
+ right = mid - 1; // Adjusting the search range to the left
+ }
+ }
+ return false; // City not found
+}
+// Function to display the entire city book
+void displayCityBook(const std::vector<std::string>& cityBook) {
+ std::cout << "City Book (Cities in Spain):" << std::endl;
+ // Displaying each city in the city book
+ for (const std::string& city : cityBook) {
+ std::cout << city << std::endl;
+ }
+ std::cout << "----------" << std::endl;
+}
+int main() {
+// Creating an unsorted city book with more city names
+ std::vector<std::string> unsortedCityBook = {"Barcelona", "Madrid", "Seville", "Valencia", "Granada",
+"Zaragoza",
+ "Malaga", "Barcelona", "Bilbao", "Palma de Mallorca", "Murcia", "Alicante"};
+ std::cout << "Unsorted City Book:" << std::endl;
+ // Displaying the unsorted city book
+ displayCityBook(unsortedCityBook);
+ // Sorting the city book
+ std::sort(unsortedCityBook.begin(), unsortedCityBook.end());
+ // Displaying the sorted city book
+ std::cout << "Sorted City Book:" << std::endl;
+ displayCityBook(unsortedCityBook);
+ // Searching for a city
+ std::string targetCity = "Madrid";
+ bool result = binarySearch(unsortedCityBook, targetCity);
+ // Displaying the result of the search
+ if (result) {
+ std::cout << "City found in the city book." << std::endl;
+ } else {
+ std::cout << "City not found in the city book." << std::endl;
+ }
+ return 0; }
